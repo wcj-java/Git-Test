@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mp.EmpMapper">
+
+	<resultMap id="EmpMap" type="Emp">
+		<id column="emp_id" property="empId" jdbcType="BIGINT" />
+		<id column="emp_num" property="empNum" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="TINYINT" />
+		<result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+		<result column="telphone" property="telphone" jdbcType="VARCHAR" />
+		<result column="mobilePhone" property="mobilephone" jdbcType="VARCHAR" />
+		<result column="qq" property="qq" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="organization_id" property="organizationId" jdbcType="BIGINT" />
+		<result column="role_id" property="roleId" jdbcType="BIGINT" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+		<result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		emp_id, emp_num, name, sex, birthday, telphone, mobilePhone, qq, email, organization_id, role_id,
+		username, password, status, CreateTime, UpdateTime
+	</sql>
+	
+	<!-- 增 -->
+	<insert id="insert" parameterType="Emp" useGeneratedKeys="true" keyProperty="empId">
+		insert into mp_emp (
+		  emp_id, emp_num, name, sex, birthday, telphone, mobilePhone, qq, email, 
+		  organization_id, role_id, username, password, status, CreateTime, UpdateTime
+		)
+		values (
+		  #{empId,jdbcType=BIGINT}, #{empNum,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+		  #{sex,jdbcType=TINYINT},#{birthday,jdbcType=TIMESTAMP}, #{telphone,jdbcType=VARCHAR},
+		  #{mobilephone,jdbcType=VARCHAR},#{qq,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+		  #{organizationId,jdbcType=BIGINT},#{roleId,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, 
+		  #{password,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{createtime,jdbcType=TIMESTAMP}, 
+		  #{updatetime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	
+	<!-- 删 -->
+	<delete id="deleteByPrimaryKey" parameterType="Emp">
+		delete from mp_emp
+		where emp_id = #{empId,jdbcType=BIGINT}
+	</delete>
+	
+	<!-- 查 -->
+	<select id="selectByPrimaryKey" resultMap="EmpMap" parameterType="Emp">
+		select
+		<include refid="Base_Column_List" />
+		from mp_emp
+		where emp_id = #{empId,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 改 -->
+	<update id="updateByPrimaryKey" parameterType="Emp">
+		update mp_emp
+		<set >
+	      <if test="name != null" >
+	        name = #{name,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sex != null" >
+	        sex = #{sex,jdbcType=TINYINT},
+	      </if>
+	      <if test="username != null" >
+	        username = #{username,jdbcType=VARCHAR},
+	      </if>
+	      <if test="birthday != null" >
+	        birthday = #{birthday,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="telphone != null" >
+	        telphone = #{telphone,jdbcType=VARCHAR},
+	      </if>
+	      <if test="mobilephone != null" >
+	        mobilePhone = #{mobilephone,jdbcType=VARCHAR},
+	      </if>
+	      <if test="qq != null" >
+	        qq = #{qq,jdbcType=INTEGER},
+	      </if>
+	      <if test="email != null" >
+	        email = #{email,jdbcType=VARCHAR},
+	      </if>
+	      <if test="organizationId != null" >
+	        organization_id = #{organizationId,jdbcType=BIGINT},
+	      </if>
+	      <if test="roleId != null" >
+	        role_id = #{roleId,jdbcType=BIGINT},
+	      </if>
+	      <if test="updatetime != null" >
+	        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+	      </if>
+	    </set>
+	    where emp_id = #{empId,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 改密码 -->
+	<update id="updatePasswordByEmpId" parameterType="Emp">
+		update mp_emp
+		set password = #{password,jdbcType=VARCHAR},
+		UpdateTime = #{updatetime,jdbcType=TIMESTAMP}
+		where emp_id = #{empId,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 根据用户名查询员工 -->
+	<select id="selectEmpByUsername" resultMap="EmpMap" parameterType="Emp">
+		select
+		<include refid="Base_Column_List" />
+		from mp_emp
+		where username = #{username,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 根据工号查询员工 -->
+	<select id="selectEmpByEmpNum" resultMap="EmpMap" parameterType="Emp">
+		select
+		<include refid="Base_Column_List" />
+		from mp_emp
+		where emp_num = #{empNum,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询列表 ,状态-1为查询全部-->
+    <select id="selectList" resultMap="EmpMap" parameterType="Emp">
+        select
+        <include refid="Base_Column_List" />
+        from Mp_Emp 
+        <where>
+          <if test="null != name and '' != name">name like '%${name}%'</if>
+          <if test="null != empId">and emp_id = #{empId,jdbcType=BIGINT}</if>
+          <if test="null != status and -1 != status">and status = #{status,jdbcType=INTEGER}</if>
+          <if test="null != organizationId and -1 != organizationId">and organization_Id = #{organizationId,jdbcType=BIGINT}</if>
+          <if test="null != roleId">and role_Id = #{roleId,jdbcType=BIGINT}</if>
+        </where>
+        limit #{start},#{limit}
+    </select>
+    
+	<!-- 查询数目 ,状态-1为查询全部-->
+    <select id="selectCount" resultType="java.lang.Integer" parameterType="Emp">
+        select count(*) 
+        from Mp_Emp 
+        <where>
+          <if test="null != name and '' != name">name like '%${name}%'</if>
+          <if test="null != empId">and emp_id = #{empId,jdbcType=BIGINT}</if>
+          <if test="null != status and -1 != status">and status = #{status,jdbcType=INTEGER}</if>
+          <if test="null != organizationId and -1 != organizationId">and organization_Id = #{organizationId,jdbcType=BIGINT}</if>
+          <if test="null != roleId">and role_Id = #{roleId,jdbcType=BIGINT}</if>
+        </where>
+    </select>
+    
+    <!-- 根据角色查询员工 -->
+    <select id="getEmpListByRole" parameterType="BigInteger" resultMap="EmpMap">
+        select
+        <include refid="Base_Column_List" />
+        from Mp_Emp 
+        where role_id = #{roleId,jdbcType=BIGINT}
+    </select>
+    
+    <!-- 根据组织查询员工 -->
+     <select id="getEmpListByOrganization" parameterType="BigInteger" resultMap="EmpMap">
+         select
+        <include refid="Base_Column_List" />
+        from Mp_Emp 
+        where organization_id = #{organizationId,jdbcType=BIGINT}
+     </select>
+    
+</mapper>

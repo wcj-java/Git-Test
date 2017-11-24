@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+       <typeAlias alias="Organization" type="com.yct.bean.Organization"/>
+       <typeAlias alias="Emp" type="com.yct.bean.Emp"/>
+       <typeAlias alias="Menu" type="com.yct.bean.Menu"/>
+       <typeAlias alias="Power" type="com.yct.bean.Power"/>
+       <typeAlias alias="Role" type="com.yct.bean.Role"/>
+    </typeAliases>
+    <mappers>
+        <mapper resource="mybatis/sql/Organization.xml"/>
+        <mapper resource="mybatis/sql/Emp.xml"/>
+        <mapper resource="mybatis/sql/Menu.xml"/>
+        <mapper resource="mybatis/sql/Power.xml"/>
+        <mapper resource="mybatis/sql/Role.xml"/>
+    </mappers>
+</configuration>

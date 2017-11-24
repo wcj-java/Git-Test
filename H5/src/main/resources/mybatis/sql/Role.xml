@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mp.RoleMapper" >
+
+  <resultMap id="BaseResultMap" type="Role" >
+    <id column="role_id" property="roleId" jdbcType="BIGINT" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="organization_id" property="organizationId" jdbcType="BIGINT" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UpdateTime" property="lastupdatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    role_id, role_name, parent_id, organization_id, description, CreateTime, UpdateTime
+  </sql>
+  
+  <!-- 增 -->
+   <insert id="insertRole" parameterType="Role" useGeneratedKeys="true" keyProperty="roleId">
+    insert into mp_role (
+        role_id, 
+        role_name, 
+        parent_id, 
+        organization_id, 
+        description, 
+        CreateTime, 
+        UpdateTime
+      )
+    values (
+        #{roleId,jdbcType=BIGINT}, 
+        #{roleName,jdbcType=VARCHAR}, 
+        #{parentId,jdbcType=BIGINT}, 
+        #{organizationId,jdbcType=BIGINT}, 
+        #{description,jdbcType=VARCHAR}, 
+        #{createtime,jdbcType=TIMESTAMP}, 
+        #{lastupdatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  <!-- 删 -->
+  <delete id="deleteByPrimaryKey" parameterType="BigInteger" >
+    delete from mp_role
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
+  
+  <!-- 查 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from mp_role
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </select>
+ 
+  <!-- 改 -->
+  <update id="updateByPrimaryKey" parameterType="Role" >
+    update mp_role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+        parent_id = #{parentId,jdbcType=BIGINT},
+        organization_id = #{organizationId,jdbcType=BIGINT},
+        description = #{description,jdbcType=VARCHAR},
+        UpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP}
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 查询列表（用于分页） -->
+  <select id="selectList" resultMap="BaseResultMap" parameterType="Role">
+      select
+      <include refid="Base_Column_List" />
+      from mp_role 
+       <where>
+          <if test="null != roleName and '' != roleName">role_name like '%${roleName}%'</if>
+          <if test="null != roleId">and role_id = #{roleId,jdbcType=BIGINT}</if>
+      </where>
+  </select>
+  
+  <!-- 查询数目 （用于分页）-->
+  <select id="selectCount" resultType="Integer" parameterType="Role">
+      select count(*) 
+      from mp_role 
+      <where>
+          <if test="null != roleName and '' != roleName">role_name like '%${roleName}%'</if>
+          <if test="null != roleId">and role_id = #{roleId,jdbcType=BIGINT}</if>
+      </where>
+  </select>
+  
+  <!-- 根据组织Id查询角色 -->
+  <select id="getRoleListByOrganization" resultMap="BaseResultMap" parameterType="BigInteger">
+      select <include refid="Base_Column_List" />
+      from mp_role 
+      where organization_id = #{organizationId,jdbcType=BIGINT}
+  </select>
+  
+</mapper>

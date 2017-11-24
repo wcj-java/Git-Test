@@ -1,0 +1,201 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.yct</groupId>
+  <artifactId>H5</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>H5 Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<spring.version>4.2.3.RELEASE</spring.version>
+	<aspectjweaver.version>1.8.7</aspectjweaver.version>
+	<mybatis.version>3.3.0</mybatis.version>
+	<mybatis-spring.version>1.2.3</mybatis-spring.version>
+	<javax.servlet-api.version>4.0.0-b01</javax.servlet-api.version>
+	<javax.servlet.jsp-api.version>2.3.2-b01</javax.servlet.jsp-api.version>
+	<jstl.version>1.2</jstl.version>
+	<druid.version>1.0.16</druid.version>
+	<fastjson.version>1.2.7</fastjson.version>
+	<mysql.version>5.1.37</mysql.version>
+	<commons-lang3.version>3.4</commons-lang3.version>
+	<patchca.version>0.0.1</patchca.version>
+	<jedis.version>2.8.0</jedis.version>
+	<slf4j-api.version>1.7.13</slf4j-api.version>
+	<logback.version>1.0.13</logback.version>
+  </properties>
+  <dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- 添加Spring-core包 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!-- 添加spring-context包 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!-- 添加spring-tx包 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!-- 添加spring-jdbc包 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!-- 为了方便进行单元测试，添加spring-test包 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!--添加spring-web包 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!--添加aspectjweaver包 -->
+          <dependency>
+              <groupId>org.aspectj</groupId>
+              <artifactId>aspectjweaver</artifactId>
+              <version>${aspectjweaver.version}</version>
+          </dependency>
+          <!-- 添加mybatis的核心包 -->
+          <dependency>
+              <groupId>org.mybatis</groupId>
+              <artifactId>mybatis</artifactId>
+              <version>${mybatis.version}</version>
+          </dependency>
+          <!-- 添加mybatis与Spring整合的核心包 -->
+          <dependency>
+              <groupId>org.mybatis</groupId>
+              <artifactId>mybatis-spring</artifactId>
+              <version>${mybatis-spring.version}</version>
+          </dependency>
+          <!-- 添加servlet3.0核心包 -->
+          <dependency>
+              <groupId>javax.servlet</groupId>
+              <artifactId>javax.servlet-api</artifactId>
+              <version>${javax.servlet-api.version}</version>
+          </dependency>
+          <dependency>
+              <groupId>javax.servlet.jsp</groupId>
+              <artifactId>javax.servlet.jsp-api</artifactId>
+              <version>${javax.servlet.jsp-api.version}</version>
+          </dependency>
+           <!-- jstl -->
+          <dependency>
+              <groupId>javax.servlet</groupId>
+              <artifactId>jstl</artifactId>
+              <version>${jstl.version}</version>
+          </dependency>
+          <!-- 添加druid连接池包 -->
+          <dependency>
+              <groupId>com.alibaba</groupId>
+              <artifactId>druid</artifactId>
+              <version>${druid.version}</version>
+          </dependency>
+           <!-- 添加mysql驱动包 -->
+           <dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.version}</version>
+			</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${fastjson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.bingoohuang</groupId>
+			<artifactId>patchca</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-api.version}</version>
+		</dependency>
+		<dependency>  
+		    <groupId>ch.qos.logback</groupId>  
+		    <artifactId>logback-core</artifactId>  
+		    <version>${logback.version}</version>  
+		</dependency>  
+		<dependency>  
+		    <groupId>ch.qos.logback</groupId>  
+		    <artifactId>logback-classic</artifactId>  
+		    <version>${logback.version}</version>  
+		</dependency>
+	</dependencies>
+  <build>
+    <finalName>H5</finalName>
+    <plugins>
+			<!-- Run the JUnit unit tests in an isolated classloader -->
+			<plugin>  
+		        <groupId>org.apache.maven.plugins</groupId>  
+		        <artifactId>maven-compiler-plugin</artifactId>  
+		        <version>2.3.2</version>  
+		        <configuration>  
+		            <source>1.6</source>  
+		            <target>1.6</target>  
+		        </configuration>  
+		    </plugin>  
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.4.2</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+				</configuration>
+			</plugin>
+            <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>tomcat-maven-plugin</artifactId>
+                    <version>1.2-SNAPSHOT</version>
+                    <configuration>
+                            <!-- <path>/mavenwebdemo</path>  -->
+                            <url>http://localhost:8080/manager/html</url>
+                            <server>tomcat</server>
+                    </configuration>
+            </plugin>
+		</plugins>
+  </build>
+</project>

@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=src/main/webapp/js/common/ligerui/plugins/ligerToolBar.js,src/main/webapp/js/main/index.js,src/main/webapp/js/common/jquery/jquery-1.8.3.min.js,src/main/webapp/js/common/jquery/jquery-1.9.0.min.js
+validator.Unchecked=

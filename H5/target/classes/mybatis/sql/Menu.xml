@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mp.MenuMapper">
+
+	<resultMap id="MenuMap" type="Menu">
+		<id column="menu_id" property="menuId" jdbcType="BIGINT" />
+		<result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="BIGINT" />
+		<result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
+		<result column="menu_level" property="menuLevel" jdbcType="TINYINT" />
+		<result column="menu_state" property="menuState" jdbcType="TINYINT" />
+		<result column="menu_desc" property="menuDesc" jdbcType="VARCHAR" />
+		<result column="menu_order" property="menuOrder" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		menu_id, menu_name, parent_id, menu_url, menu_level, menu_state
+	</sql>
+	
+	<!-- 增 -->
+	<insert id="insertMenu" parameterType="Menu" useGeneratedKeys="true" keyProperty="menuId">
+		insert into mp_menu (menu_id, menu_name, parent_id,
+		menu_url, menu_level, menu_state, menu_desc, menu_order
+		)
+		values (#{menuId,jdbcType=BIGINT}, #{menuName,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT},
+		#{menuUrl,jdbcType=VARCHAR}, #{menuLevel,jdbcType=TINYINT}, #{menuState,jdbcType=TINYINT}, 
+		#{menuDesc,jdbcType=VARCHAR}, #{menuOrder,jdbcType=INTEGER}
+		)
+	</insert>
+	
+	<!-- 删 -->
+	<delete id="deleteByPrimaryKey" parameterType="BigInteger">
+		delete from mp_menu
+		where menu_id = #{menuId,jdbcType=BIGINT}
+	</delete>
+	
+	<!-- 查 -->
+	<select id="selectByPrimaryKey" resultMap="MenuMap" parameterType="BigInteger">
+		select
+		<include refid="Base_Column_List" />
+		from mp_menu
+		where menu_id = #{menuId,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 查 -->
+	<select id="getMenuByUrl" resultMap="MenuMap" parameterType="String">
+		select
+		<include refid="Base_Column_List" />
+		from mp_menu
+		where menu_url = #{menuUrl,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 改 -->
+	<update id="updateByPrimaryKey" parameterType="Menu">
+		update mp_menu
+		set menu_name = #{menuName,jdbcType=VARCHAR},
+		parent_id = #{parentId,jdbcType=BIGINT},
+		menu_url = #{menuUrl,jdbcType=VARCHAR},
+		menu_level = #{menuLevel,jdbcType=TINYINT},
+		menu_state = #{menuState,jdbcType=TINYINT},
+		menu_desc = #{menuDesc,jdbcType=VARCHAR}, 
+		menu_order = #{menuOrder,jdbcType=INTEGER}
+		where menu_id = #{menuId,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 查询用户一级菜单列表 -->
+	<select id="selectFistMenuList" resultMap="MenuMap" parameterType="Power">
+        select
+        m.menu_id, menu_name, parent_id, menu_url, menu_level, menu_state
+        from mp_menu m, mp_power p
+        where m.menu_id = p.menu_id and m.menu_level = 1 and m.menu_state = 0 and p.role_id = #{roleId, jdbcType=BIGINT}
+    </select>
+    
+    <!-- 查询用户子菜单(只一层)列表 -->
+    <select id="selectSubMenuList" resultMap="MenuMap" parameterType="Power">
+        select
+        m.menu_id, menu_name, parent_id, menu_url, menu_level, menu_state
+        from mp_menu m, mp_power p
+        where m.menu_id = p.menu_id and m.menu_state = 0 and p.role_id = #{roleId, jdbcType=BIGINT} and m.parent_id = #{menuId, jdbcType=BIGINT}
+    </select>
+    
+    <!-- 根据角色查询菜单 -->
+    <select id="getMenuListByRole" resultMap="MenuMap" parameterType="BigInteger">
+        select m.menu_id, m.menu_name, m.parent_id, m.menu_url, m.menu_level, m.menu_state
+        from mp_power p, mp_menu m, mp_role r 
+        where p.menu_id = m.menu_id 
+        and p.role_id = r.role_id
+        and p.role_id = #{roleId,jdbcType=BIGINT}
+    </select>
+    
+</mapper>

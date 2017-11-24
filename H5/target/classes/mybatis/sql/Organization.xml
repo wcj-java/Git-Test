@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mp.OrganizationMapper" >
+
+  <resultMap id="BaseResultMap" type="Organization" >
+    <id column="organization_id" property="organizationId" jdbcType="BIGINT" />
+    <result column="organization_name" property="organizationName" jdbcType="VARCHAR" />
+    <result column="principal_id" property="principalId" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UpdateTime" property="lastupdatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    organization_id, organization_name, principal_id, parent_id, description, CreateTime, 
+    UpdateTime
+  </sql>
+  
+  <!-- 增 -->
+  <insert id="insertOrganization" parameterType="Organization" useGeneratedKeys="true" keyProperty="organizationId">
+    insert into mp_organization (
+        organization_id, 
+        organization_name, 
+        principal_id, 
+        parent_id, 
+        description, 
+        CreateTime, 
+        UpdateTime
+      )
+    values (
+        #{organizationId,jdbcType=BIGINT}, 
+        #{organizationName,jdbcType=VARCHAR}, 
+        #{principalId,jdbcType=BIGINT}, 
+        #{parentId,jdbcType=BIGINT}, 
+        #{description,jdbcType=VARCHAR}, 
+        #{createtime,jdbcType=TIMESTAMP}, 
+        #{lastupdatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  <!-- 删 -->
+  <delete id="deleteByPrimaryKey" parameterType="BigInteger" >
+    delete from mp_organization
+    where organization_id = #{organizationId,jdbcType=BIGINT}
+  </delete>
+  
+  <!-- 查 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from mp_organization
+    where organization_id = #{organizationId,jdbcType=BIGINT}
+  </select>
+  
+  <!-- 改 -->
+  <update id="updateByPrimaryKey" parameterType="Organization" >
+    update mp_organization
+    set organization_name = #{organizationName,jdbcType=VARCHAR},
+        principal_id = #{principalId,jdbcType=BIGINT},
+        parent_id = #{parentId,jdbcType=BIGINT},
+        description = #{description,jdbcType=VARCHAR},
+        UpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP}
+    where organization_id = #{organizationId,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 查询列表（用于分页） -->
+  <select id="selectList" resultMap="BaseResultMap" parameterType="Organization">
+      select
+      <include refid="Base_Column_List" />
+      from mp_organization
+      <where>
+          <if test="null != organizationName and '' != organizationName">organization_name like '%${organizationName}%'</if>
+          <if test="null != organizationId">and organization_id = #{organizationId,jdbcType=BIGINT}</if>
+      </where> 
+  </select>
+  
+  <!-- 查询数目 （用于分页）-->
+  <select id="selectCount" resultType="Integer" parameterType="Organization">
+      select count(*) 
+      from mp_organization 
+      <where>
+          <if test="null != organizationName and '' != organizationName">organization_name like '%${organizationName}%'</if>
+          <if test="null != organizationId">and organization_id = #{organizationId,jdbcType=BIGINT}</if>
+      </where>
+  </select>
+  
+  <!-- 查询所有 -->
+  <select id="getAllOrganization" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from mp_organization 
+  </select>
+  
+</mapper>

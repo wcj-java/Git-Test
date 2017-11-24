@@ -1,0 +1,120 @@
+body
+{
+    background-color: #3d3d3d !important;
+    color: #000;
+}
+.login
+{
+    position: absolute;
+    left: 50%;
+    top:50%;
+    margin-left: -160px;
+    margin-top: -100px;
+    width: 320px;
+    height: 200px;
+}
+.title
+{
+    width: 320px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+}
+.ipt_wrap
+{
+    margin-left: 23px;
+    margin-top: 10px;
+    display: inline-block;
+}
+.ipt_wrap input
+{
+    background: #fff;
+    border-right: 0 !important;
+    margin-right: 1px;
+    display: inline-block;
+    height: 20px;
+    border: none;
+    outline: none;
+    padding: 6px;
+}
+#txtUser
+{
+    width: 262px;
+}
+#txtPass
+{
+    width: 208px;
+}
+#btnLogin
+{
+    margin-left: -8px;
+}
+.btn{
+	height: 32px;
+}
+.copyright
+{
+    padding-top: 10px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 13px;
+    text-align: center;
+    width: 320px;
+    color: #ccc;
+}
+#spnRegister{
+	padding-left: 6px;
+	cursor: pointer;
+	cursor: -ms-pointer;
+}
+#spnRegister:hover{
+	color: #28B779;
+}
+.div_Warning
+{
+    width:275px;
+    height:36px;
+    line-height:36px;
+    margin-left:23px;
+    color: #b94a48;
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    display:none;
+    padding:0;
+}
+    .div_Warning .close
+    {
+        width:15px;
+        height:20px;
+        float:right;
+        margin-right:3px;
+        margin-top:1px;
+    }
+.iconfont.error
+{
+    font-size:9px;
+    color:#C2B2B2;
+    position:relative;
+    top:-8px;
+}
+    .iconfont.error:hover
+    {
+        color:#918585;
+        cursor:pointer;
+    }
+.div_Warning span
+{
+    padding-left:5px;
+}
+.div_Logo{
+	width: 117px;
+	height: 103px;
+	background: url(../Image/app_icon_117.png) no-repeat;
+	background-size: 117px 103px;
+	position: absolute;
+	left: 97px;
+	top: -110px;
+}
